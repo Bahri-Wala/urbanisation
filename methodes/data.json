@@ -1,0 +1,8 @@
+{
+    "id":2,
+    "experiences": [{"id" :"633715f8e61e1410589439e4"},{"id" :"63371693e61e1410589439e5"}],
+    "date_start": "02-14-2022",
+    "date_end": "02-16-2022",
+    "food": {"state":false ,"name":"pizza"},
+    "transport": {"state":false ,"name":"bus"}
+}
