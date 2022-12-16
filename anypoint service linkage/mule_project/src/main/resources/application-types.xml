@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="programme" format="json">
+      <types:shape format="weave" example="examples/programme.json"><![CDATA[%dw 2.0
+
+type programme = {|
+  programme: Array<{|    experienceId: String,     partnerId: String,     time: String  |}>, 
+  price: Number {"typeId": "int"}
+|} {"example": "{\\\"programme\\\":[{\\\"experienceId\\\":\\\"633715f8e61e1410589439e4\\\",\\\"partnerId\\\":\\\"6393c41c1a4270e14a3c8976\\\",\\\"time\\\":\\\"2022-12-15T00:00:00.000Z\\\"},{\\\"experienceId\\\":\\\"63371693e61e1410589439e5\\\",\\\"partnerId\\\":\\\"6393c41c1a4270e14a3c8976\\\",\\\"time\\\":\\\"2022-12-15T00:00:00.000Z\\\"}],\\\"price\\\":5000}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="input_reservation" format="json">
+      <types:shape format="weave" example="examples/input_reservation.json"><![CDATA[%dw 2.0
+
+type input_reservation = {|
+  devis: {|
+    programme: Array<{|      experienceId: String,       partnerId: String,       time: String    |}>, 
+    price: Number {"typeId": "int"}
+  |}, 
+  userId: String, 
+  payement: Number {"typeId": "int"}
+|} {"example": "{\\\"devis\\\":{\\\"programme\\\":[{\\\"experienceId\\\":\\\"633715f8e61e1410589439e4\\\",\\\"partnerId\\\":\\\"6393c41c1a4270e14a3c8976\\\",\\\"time\\\":\\\"2022-12-15T00:00:00.000Z\\\"},{\\\"experienceId\\\":\\\"63371693e61e1410589439e5\\\",\\\"partnerId\\\":\\\"6393c41c1a4270e14a3c8976\\\",\\\"time\\\":\\\"2022-12-15T00:00:00.000Z\\\"}],\\\"price\\\":5000},\\\"userId\\\":\\\"62b35097fa14e56f9baac565\\\",\\\"payement\\\":1000}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#db4f5770-3aaf-4c05-a66f-bfed0647cf6f">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="programme"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="input_reservation"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
